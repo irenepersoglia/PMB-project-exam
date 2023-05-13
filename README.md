@@ -8,3 +8,11 @@ In particular, the study focuses on two cell lines (LCLs and primary fibroblast)
 
 ### The PANDA package
 The package used in this study is called PANDA (https://github.com/netZoo/netZooPy). In particular, PANDA considers initial networks as composed by effector and affected nodes, where the information can flow between tep effectors or affectors or, more importantly, between an effector node and its affected target, along the so-called "routes of affection". Then, by using a message-passing procedure, it assimilates the various initial information inot one coherent model, passing attributes between the effectors and their affected targets along the various routes of affection and updating each until all three are in agreement with one another. 
+
+## Installation
+To install the application, please use the following code:
+'''Python
+git clone https://github.com/irenepersoglia/PMB-project-exam.git
+cd PMB-project-exam
+pip install -r requirements.txt
+'''
