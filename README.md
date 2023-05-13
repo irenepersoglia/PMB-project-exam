@@ -11,8 +11,8 @@ The package used in this study is called PANDA (https://github.com/netZoo/netZoo
 
 ## Installation
 To install the application, please use the following code:
-'''Python
+```
 git clone https://github.com/irenepersoglia/PMB-project-exam.git
 cd PMB-project-exam
 pip install -r requirements.txt
-'''
+```
