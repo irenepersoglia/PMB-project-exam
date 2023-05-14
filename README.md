@@ -25,8 +25,8 @@ where:
 * the **motif prior** is typically a TF-by-gene matrix, with values ranging from 0 to 1, where 1 indicates the presence of sequence (motif) of a TF in the gene regualtory region, and 0 otherwise
 * the **gene expression data** is typically a gene-by-sample matrix containing expression data
 * the **PPI network** (protein-protein interaction network) is a TF-by-TF matrix, with values ranging from 0 to 1, where 1 indicates a physical interaction between two TFs and 0 otherwise
-
-#### List of available data
+\
+An example of dataset that can be used in this analysis can be found [here]().
 
 ## Project structure and organization
 After setting in input the required data, the greatest part of the project is the cleaning and preparing of the data themselves. In particular, it is important for the genes present in the three networks to be expressed according to the same nomenclature (ENSEMBL, HGNC, etc.). In this script, this "translating" procedure is repeated for both the PPI prior and the gene expression data, to make them compatible with the motif prior. Of course, in order to do so, an additional matrix to be used as dictionary is needed. \
