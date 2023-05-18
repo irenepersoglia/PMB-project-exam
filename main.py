@@ -21,17 +21,24 @@ if __name__ == "__main__":
     with open(dictionary_path, "r") as file:
         header = file.readline()
         
-    cols = [col.strip() for col in  header.strip("#").split("/")]
+    cols = [col.strip() for col in header.strip("#").split("/")]
     
     # Load dictionary dataframe
-    dictionary_df = pd.read_csv(dictionary_path, sep ='\t', comment="#", names=cols)
+    dictionary_df = pd.read_csv(dictionary_path, sep = '\t', comment = "#", names = cols)
     languages = cols[1:]    # keep only the columns with the languages
     dictionary_df = dictionary_df[languages]
     
     # Define translator
     translator = Translator(dictionary_df)
+    
+    # Load table to translate
+    table_df = pd.read_csv(table_path, sep = " ")
+    
+    # Translate table
+    columns_to_translate = [col for col in table_df.columns if "protein" in col]
+    
+    for column in columns_to_translate:
+        translator.translate_table(table_df, column, "display name")
 
-    
-    
     
     

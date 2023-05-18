@@ -28,3 +28,11 @@ class Translator:
         translated_word = self.dict_table.at[word_index, desired_language]
         
         return translated_word
+
+    def translate_row(self, row, column, desired_language):
+        return self.translate(row[column], desired_language)
+    
+    def translate_table(self, table, column, desired_language):
+        table[column] = table.apply(lambda row: self.translate_row(row, column, desired_language), axis=1)
+        
+        return table
