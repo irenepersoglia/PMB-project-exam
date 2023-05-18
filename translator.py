@@ -19,9 +19,8 @@ class Translator:
 
     def translate(self, word, desired_language):
         translated_word = ""
-        language = ""
         try:
-            word_index, language = self.index_dict_table[word]
+            word_index, _ = self.index_dict_table[word]
         except KeyError:
             return None
         
