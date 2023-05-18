@@ -1,4 +1,6 @@
 import argparse
+import pandas as pd
+from translator import Translator
 
 if __name__ == "__main__":
 
@@ -14,3 +16,22 @@ if __name__ == "__main__":
     dictionary_path = args.dictionary
     table_path = args.table
     n_processes = args.num_processes
+    
+    # Take columns names (languages) from the dictionary
+    with open(dictionary_path, "r") as file:
+        header = file.readline()
+        
+    cols = [col.strip() for col in  header.strip("#").split("/")]
+    
+    # Load dictionary dataframe
+    dictionary_df = pd.read_csv(dictionary_path, sep ='\t', comment="#", names=cols)
+    languages = cols[1:]    # keep only the columns with the languages
+    dictionary_df = dictionary_df[languages]
+    
+    # Define translator
+    translator = Translator(dictionary_df)
+
+    
+    
+    
+    

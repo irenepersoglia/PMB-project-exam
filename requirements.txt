@@ -1,5 +1,1 @@
 pandas>=1.5.2
-numpy>=1.21.6
-netZooPy>=0.9.13
-matplotlib>=3.6.3
-tdqm>=4.64.0
