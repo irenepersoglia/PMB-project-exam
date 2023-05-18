@@ -1,4 +1,5 @@
 import pandas
+
 class Translator:
     """
     Class to be used as a translator, given a word to translate and a dictionary for reference  
