@@ -1,5 +1,6 @@
 import argparse
 import pandas as pd
+import numpy as np
 from translator import Translator
 
 if __name__ == "__main__":
@@ -35,6 +36,7 @@ if __name__ == "__main__":
     
     # Load table to translate
     table_df = pd.read_csv(table_path, sep = " ")
+    table_df[2] = np.dot(table_df[2], 0.001)
     
     # Translate table
     columns_to_translate = [col for col in table_df.columns if "protein" in col]
