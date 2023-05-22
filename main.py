@@ -45,3 +45,5 @@ if __name__ == "__main__":
     # Save the new table in the same path
     if save_table == 'yes':
         table_df.to_csv(table_path, index = False)
+        
+    
