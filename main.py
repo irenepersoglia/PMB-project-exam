@@ -32,7 +32,7 @@ if __name__ == "__main__":
     dictionary_df = dictionary_df[languages]
     
     # Define translator
-    translator = Translator(dictionary_df)
+    translator = Translator(dictionary_df, n_processes)
     
     # Load table to translate
     table_df = pd.read_csv(table_path, sep = " ")
@@ -41,8 +41,10 @@ if __name__ == "__main__":
     # Translate table
     columns_to_translate = [col for col in table_df.columns if "protein" in col]
     
+    
+    
     for column in columns_to_translate:
-        translator.translate_table(table_df, column, "display name")
+        table_df = translator.translate_table(table_df, column, "display name")
 
     # Save the new table in the same path
     if save_table:
@@ -51,3 +53,4 @@ if __name__ == "__main__":
         translated_table_path += "/"
         translated_table_path += translated_table_file_name
         table_df.to_csv(translated_table_path, index = False)
+        

@@ -1,10 +1,17 @@
 import pandas
+import multiprocessing as mp 
+import warnings
+import numpy as np
+from tqdm import tqdm
+
+import utils
 
 class Translator:
     """
     Class to be used as a translator, given a word to translate and a dictionary for reference  
     """
-    def __init__(self, dict_table: pandas.DataFrame):
+    def __init__(self, dict_table: pandas.DataFrame, num_processes: int):
+        self.num_processes: int = num_processes
         self.index_dict_table = dict()
         self.dict_table: pandas.DataFrame = dict_table
         self.set_dict_table()
@@ -32,7 +39,40 @@ class Translator:
     def translate_row(self, row, column, desired_language):
         return self.translate(row[column], desired_language)
     
-    def translate_table(self, table, column, desired_language):
-        table[column] = table.apply(lambda row: self.translate_row(row, column, desired_language), axis=1)
+    def translate_worker(self, args):
+        '''
         
+        '''
+
+        process_id = args[0]
+        column = args[1]
+        table = args[2]
+        desired_language = args[3]
+        
+        tqdm.pandas(desc='worker #{}'.format(process_id), position=process_id)
+        
+        table[column] = table.progress_apply(lambda row: self.translate_row(row, column, desired_language), axis=1)
+        
+        return table    
+    
+    def translate_table(self, table, column, desired_language):
+        if self.num_processes == 1:
+            tqdm.pandas()
+            table[column] = table.progress_apply(lambda row: self.translate_row(row, column, desired_language), axis=1)
+        else:
+            if self.num_processes == 0: 
+                warnings.warn("No number of processes specified, the program will use all available cpu. This may slow down your pc.")
+                self.num_processes = mp.cpu_count()
+                
+            splitted_df = np.array_split(table, self.num_processes)
+
+            # Start processes in asyncronous way
+            # with mp.Pool(processes=self.num_processes) as pool:
+            pool = mp.Pool(processes = self.num_processes)
+            results = [pool.apply_async(self.translate_worker, args = ([i, column, splitted_df[i], desired_language],)) for i in range(self.num_processes)]
+                
+            
+            final_table = [p.get() for p in results]
+            table = pandas.concat(final_table)
+            
         return table
