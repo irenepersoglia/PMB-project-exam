@@ -65,6 +65,9 @@ if __name__ == "__main__":
         
     second_table_df = second_table_df.replace(to_replace='None', value=np.nan).dropna()
     
+    # Parse the two tables to keep only the same subjects for subsequent analysis
+    first_table_df, second_table_df = utils.parse_columns(df_1=first_table_df, df_2=second_table_df)
+    
     # Save the new tables in the same path
     if save_table:
         translated_first_table_file_name = "translated_" + first_table_path.split("/")[-1]
