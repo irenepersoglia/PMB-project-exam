@@ -31,6 +31,6 @@ python translate_proteins.py --dictionary <dictionary>  --table <data to be prep
 where the last argument saves a copy of the new translated table in the same directory.\
 For the gene expression analysis, the reference file is [this one](https://github.com/irenepersoglia/PMB-project-exam/blob/main/translate_proteins.py). As before, to run from the command line type:
 ```
-python translate_genes.py --dictionary <dictionary>  --first_table <first set of data to be preprocessed> --second_table <second set of data to be preprocessed> --num_processes <the number of parallel processses in the multiprocessing> --save_table <yes or no>
+python translate_genes.py --dictionary <dictionary>  --first_table <first set of data to be preprocessed> --second_table <second set of data to be preprocessed> --num_processes <the number of parallel processses in the multiprocessing> --save_table <True or False>
 ```
 As you can see it takes as arguments two different tables, since for the further analysis it will be important that the same subjects only are kept in the two dataframes. 
