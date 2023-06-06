@@ -37,18 +37,18 @@ As you can see it takes as arguments two different tables, since for the further
 
 ## Project structure
 After setting as inputs the requested dataframes and the number of processes, it is possible to run the script. In particular, any data retrieved from the two cited databases is suitable for the analysis, while the dictionary dataframes please refer to the [Example section](#example).\
-##
+\
 First, the program creates an object "translator" from the dictionary, also setting the languages for the translation. At this point, the table that has to be translated according to the nomenclature indicated in the dictionary is cleaned in order to keep only the data that will be used by PANDA.\
 In the case of the protein-protein interaction table, the column that indicates the interaction score between genes is divided by a factor of 10^3, since this value must range between 0 and 1.\
 For the gene expression data instead, the columns with the chromosome indications are removed, leaving us with only the gene names and their expression values relative to each subject in the dataframe.\
-## 
+\
 After this, the translation begins. The Translator class identifies the word (protein or gene name) in the dictionary, finding the translation, and subsequently translates the corrispondent row in the original table. By doing this on the whole table with the apply function, the program returns the whole translated table.
-##
+\
 In the case of gene expression data, since the goal of this project was to prepare the data to be used in a PANDA analysis about a comparison between cell lines and tissue samples, the programm additionally cleans the translated tables in order to keep only the same tested subjects.
 
 ### Number of processes and asynchronous multiprocessing
 To speed up the process in case of large data, the user can define as input the number of processes used by the program. The number of processes used must be chosen carefully, since a too many processes can use all the cpu available, bringing actually no benefit to the processing time. The number of processes is an optional argument, hence if the user does not provide any, a default value of 1 will be assigned.\
-##
+\
 Additionally, it has been chosen to additionally reduce the computational time, since this kind of data, especially protein-protein interaction data, can be extremely big. In order to parallelize the processing, the data to be analyzed are splitted into chunks that are translated separately, and eventually merged again in the right order at the end of the process.\
 
 ## Testing
@@ -68,6 +68,6 @@ python translate_proteins.py --dictionary example/proteins/human.name_2_string.t
 ```
 python translate_genes.py --dictionary example/genes/mart_export.txt --first_table example/genes/Whole_Blood_Analysis.v6p.normalized.expression.bed --second_table example/genes/Cells_EBV-transformed_lymphocytes_Analysis.v6p.normalized.expression.bed --num_processes 4 --save_table
 ```
-This process takes up from less than a minute up to a few minutes to complete, depending on the power of the user' machine. 
+This process takes up from less than a minute up to a few minutes to complete, depending on the power of the user's machine. 
 ##
 Following this scripts, any data retrieved from the cited databases could be analyzed, but it is strongly recommended that the the dictionaries used in both cases are the ones provided by this example folder.
