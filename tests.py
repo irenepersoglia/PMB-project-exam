@@ -8,6 +8,7 @@ import numpy as np
 def test_translate():
     """
     Test for the 'translate' method in the Translator class.
+    Tests if, given a known dictionary and a word, the translation is the expected one.
     """
     
     # Create test dataframe
@@ -22,6 +23,8 @@ def test_translate():
 def test_translate_row():
     """
     Test for the 'translate_row' method in the Translator class.
+    Tests if, given a known dictionary and dataframe, the first row at the indicated
+    column is translated as expected.
     """
 
     # Create test dataframes
@@ -39,6 +42,8 @@ def test_translate_row():
 def test_translate_table():
     """
     Test for the 'translate_table' method in the Translator class.
+    Tests if, given a known dictionary and dataframe, the dataframe is translated
+    as expected.
     """
 
     # Create test dataframes
@@ -58,9 +63,9 @@ def test_translate_table():
 def test_remove_version():
     """
     Tests if, given a known dataframe, the new gene names are the
-    expected ones.
+    expected ones, with the assembly version correctly removed.
     """
-    
+
     df_rm_ver = pd.read_csv("test/gene_data_test.bed", sep = "\t")
     column = "gene_id"
     df_rm_ver[column] = df_rm_ver.apply(lambda row : remove_version(row, ".", column), axis = 1)
@@ -69,7 +74,6 @@ def test_remove_version():
     assert df_rm_ver[column][1] == "ENSG00000227232"
     assert df_rm_ver[column][2] == "ENSG00000238009"
     assert df_rm_ver[column][3] == "ENSG00000233750"
-
 
 def test_parse_columns():
     """
