@@ -8,7 +8,7 @@ import utils
 
 class Translator:
     """
-    Class to be used as a translator, given a word to translate and a dictionary for reference.
+    Class to be used as a translator, given a word or table to translate, and a dictionary for reference.
     """
     
     def __init__(self, dict_table: pandas.DataFrame, num_processes: int):
@@ -21,7 +21,7 @@ class Translator:
     def set_dict_table(self):
         """
         Function that sets the dictionary, identifying the languages
-        for the translation and the word's indexes.
+        for the translation and the words' indexes.
         """
         
         languages = self.dict_table.columns
