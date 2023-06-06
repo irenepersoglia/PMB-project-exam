@@ -46,7 +46,7 @@ After this, the translation begins. The Translator class identifies the word (pr
 ##
 In the case of gene expression data, since the goal of this project was to prepare the data to be used in a PANDA analysis about a comparison between cell lines and tissue samples, the programm additionally cleans the translated tables in order to keep only the same tested subjects.
 
-# Number of processes and asynchronous multiprocessing
+### Number of processes and asynchronous multiprocessing
 To speed up the process in case of large data, the user can define as input the number of processes used by the program. The number of processes used must be chosen carefully, since a too many processes can use all the cpu available, bringing actually no benefit to the processing time. The number of processes is an optional argument, hence if the user does not provide any, a default value of 1 will be assigned.\
 ##
 Additionally, it has been chosen to additionally reduce the computational time, since this kind of data, especially protein-protein interaction data, can be extremely big. In order to parallelize the processing, the data to be analyzed are splitted into chunks that are translated separately, and eventually merged again in the right order at the end of the process.\
