@@ -10,7 +10,7 @@ if __name__ == "__main__":
     argparser.add_argument('--dictionary', type = str, help = 'set the dictionary for the translation', default = "", required = True)
     argparser.add_argument('--table', type = str, help = 'set the table to translate', default = "", required = True)
     argparser.add_argument('--num_processes', type = int, help = 'set the number of processes', default = 1, required = False)
-    argparser.add_argument('--save_table', help = 'choose to save the translated file (True or False)', default = False, required = False, action="store_true")
+    argparser.add_argument('--save_table', help = '(optional) saves the translated file', default = False, required = False, action="store_true")
 
 
     # Parameters

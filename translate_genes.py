@@ -13,7 +13,7 @@ if __name__ == "__main__":
     argparser.add_argument('--first_table', type = str, help = 'set the first table to translate', default = "", required = True)
     argparser.add_argument('--second_table', type = str, help = 'set the second table to translate', default = "", required = True)
     argparser.add_argument('--num_processes', type = int, help = 'set the number of processes', default = 1, required = False)
-    argparser.add_argument('--save_table', help = 'choose to save the translated file (True or False)', default = False, required = False, action="store_true")
+    argparser.add_argument('--save_table', help = '(optional) saves the translated files', default = False, required = False, action="store_true")
 
 
     # Parameters
@@ -76,8 +76,8 @@ if __name__ == "__main__":
         translated_first_table_path += translated_first_table_file_name
         first_table_df.to_csv(translated_first_table_path, index = False)
     
-        translated_second_table_file_name = "translated_" + first_table_path.split("/")[-1]
-        translated_second_table_path = "/".join(first_table_path.split("/")[:-1])
+        translated_second_table_file_name = "translated_" + second_table_path.split("/")[-1]
+        translated_second_table_path = "/".join(second_table_path.split("/")[:-1])
         translated_second_table_path += "/"
         translated_second_table_path += translated_second_table_file_name
         second_table_df.to_csv(translated_second_table_path, index = False)
