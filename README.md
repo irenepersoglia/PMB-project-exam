@@ -1,6 +1,6 @@
 # PMB-PANDA-project
 
-The aim of the project was the study of regulatory relationchips between cell lines and their tissues of origin. The tool that is used to calculate the networks is PANDA (Passing Attributes between Networks for Data Assimilation), an open source tool which conveys multiple sources of information to predict regulatory relationships between genes.
+The aim of the project was the study of regulatory relationships between cell lines and their tissues of origin. The tool that is used to calculate the networks is PANDA (Passing Attributes between Networks for Data Assimilation), an open source tool which conveys multiple sources of information to predict regulatory relationships between genes.
 Since the data required by PANDA should be in a particular format, this work is mainly focused on the cleaning and preprocessing of the newtorks, as requested by the PANDA package. 
 
 ### Data used for this project
