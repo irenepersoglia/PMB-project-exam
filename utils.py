@@ -32,7 +32,7 @@ def import_genes_table(path):
     column = "gene_id"
     
     table_df[column] = table_df.apply(lambda row : remove_version(row, '.', column), axis=1)
-    print(table_df)
+
     return table_df
 
 def parse_columns(df_1, df_2):
