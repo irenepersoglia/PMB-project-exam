@@ -1,4 +1,5 @@
 import pandas as pd 
+import numpy as np
 
 def remove_version(data, partition_symbol, column):
     """ 
@@ -34,6 +35,16 @@ def import_genes_table(path):
     table_df[column] = table_df.apply(lambda row : remove_version(row, '.', column), axis=1)
 
     return table_df
+
+def translation_table(df, translator, col_name, dict_col_name):
+    
+    columns_to_translate = [col for col in df.columns if col_name in col]
+    
+    for column in columns_to_translate:
+        df = translator.translate_table(df, column, dict_col_name)
+        
+    return df
+
 
 def parse_columns(df_1, df_2):
     """
