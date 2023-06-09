@@ -33,22 +33,10 @@ if __name__ == "__main__":
     # Define translator
     translator = Translator(dictionary_df, n_processes)
     
-    # Load first table to translate
-    first_table_df = pd.read_csv(first_table_path, sep = "\t")
-    first_table_df = first_table_df.iloc[:,3:]  # keep only the useful columns
-    
-    # Remove the gene assemby version from the gene names
-    column = "gene_id"
-    first_table_df[column] = first_table_df.apply(lambda row : utils.remove_version(row, '.', column), axis=1)
-    
-    # Load second table to translate
-    second_table_df = pd.read_csv(second_table_path, sep = "\t")
-    second_table_df = second_table_df.iloc[:,3:]  # keep only the useful columns
-    
-    # Remove the gene assemby version from the gene names
-    column = "gene_id"
-    second_table_df[column] = second_table_df.apply(lambda row : utils.remove_version(row, '.', column), axis=1)
-
+    # Load the two tables to translate with a pre-processing (remove version and unwanted columns)
+    first_table_df = utils.import_genes_table(first_table_path)    
+    second_table_df = utils.import_genes_table(second_table_path)
+ 
     # Translate first table
     columns_to_translate = [col for col in first_table_df.columns if "gene" in col]
     

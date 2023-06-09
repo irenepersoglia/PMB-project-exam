@@ -1,7 +1,8 @@
+import pandas as pd 
 
 def remove_version(data, partition_symbol, column):
     """ 
-    Function that removes the assembly version from the genes that are expressed according to the Ensembl nomenclature
+    Function that removes the assembly version from the genes that are expressed according to the Ensembl nomenclature.
 
     Args:
         data (any): Ensembl gene name, the row of the df
@@ -16,9 +17,27 @@ def remove_version(data, partition_symbol, column):
     
     return gene_id
 
+def import_genes_table(path):
+    """
+    This function imports and cleans the table, erasing the unnecessary columns and
+    removing the assembly version from the genes expressed according to the Ensembl
+    nomenclature.
+
+    Args:
+        path: the path to the table to be imported
+    """
+    table_df = pd.read_csv(path, sep ="\t")
+    table_df = table_df.iloc[:,3:]
+    
+    column = "gene_id"
+    
+    table_df[column] = table_df.apply(lambda row : remove_version(row, '.', column), axis=1)
+    print(table_df)
+    return table_df
+
 def parse_columns(df_1, df_2):
     """
-    Function that parse two DataFrames and returns them with only the common columns
+    Function that parse two DataFrames and returns them with only the common columns.
 
     Args:
         df_1 (DataFrame): first DataFrame
@@ -33,6 +52,5 @@ def parse_columns(df_1, df_2):
     
     # create a list with only the columns in common between the two DFs
     cols_list =  [x for x in column_list_1 if x in column_list_2]
-    print(cols_list)
     
     return df_1[cols_list], df_2[cols_list]
