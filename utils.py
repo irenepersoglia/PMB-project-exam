@@ -37,6 +37,20 @@ def import_genes_table(path):
     return table_df
 
 def translation_table(df, translator, col_name, dict_col_name):
+    """
+    This function applies the translate_table method of the Translator class
+    to direcly translate a given table and a reference dictionary.
+
+    Args:
+        df (DataFrame): the table to be translated
+        translator (obj): a Translator object
+        col_name (str): the name (or part) of the table column(s) to translate
+        dict_col_name (str): the name of the dictionary column where the new
+        names (the translations) are located
+
+    Returns:
+        df: the original dataframe with the translated names
+    """
     
     columns_to_translate = [col for col in df.columns if col_name in col]
     
@@ -66,6 +80,14 @@ def parse_columns(df_1, df_2):
     return df_1[cols_list], df_2[cols_list]
 
 def save_table(table, path):
+    """
+    This function saves a copy of the translated table at the location given 
+    by the provided path.
+
+    Args:
+        table: the table to save
+        path: the path to the folder where you want to save the data
+    """
     translated_table_file_name = "translated_" + path.split("/")[-1]
     translated_table_path = "/".join(path.split("/")[:-1])
     translated_table_path += "/"
