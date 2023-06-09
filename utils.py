@@ -45,7 +45,6 @@ def translation_table(df, translator, col_name, dict_col_name):
         
     return df
 
-
 def parse_columns(df_1, df_2):
     """
     Function that parse two DataFrames and returns them with only the common columns.
@@ -65,3 +64,10 @@ def parse_columns(df_1, df_2):
     cols_list =  [x for x in column_list_1 if x in column_list_2]
     
     return df_1[cols_list], df_2[cols_list]
+
+def save_table(table, path):
+    translated_table_file_name = "translated_" + path.split("/")[-1]
+    translated_table_path = "/".join(path.split("/")[:-1])
+    translated_table_path += "/"
+    translated_table_path += translated_table_file_name
+    table.to_csv(translated_table_path, index = False)
