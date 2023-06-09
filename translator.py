@@ -12,6 +12,13 @@ class Translator:
     """
     
     def __init__(self, dict_table: pandas.DataFrame, num_processes: int):
+        """
+        This function initializes the object attributes.
+
+        Args:
+            dict_table (pandas.DataFrame): the data to be passed to the class as dictionary for the translation
+            num_processes (int): the number of parallel processes applied
+        """
         
         self.num_processes: int = num_processes
         self.index_dict_table = dict()
@@ -20,8 +27,7 @@ class Translator:
        
     def set_dict_table(self):
         """
-        Function that sets the dictionary, identifying the languages
-        for the translation and the words' indexes.
+        Function that sets the dictionary, identifying the languages for the translation and the words' indexes.
         """
         
         languages = self.dict_table.columns
@@ -56,7 +62,17 @@ class Translator:
 
     def translate_row(self, row, column, desired_language):
         """
-        This function returns the tranlated word.
+        Given a table, this function returns the translated word in that table,
+        identified by its row and column.
+        
+        Args:
+            row: the row of the word to be translated
+            column: the column of the word to be translated
+            desired_language: the desired translation language
+
+        Returns:
+            translated word: the translated word
+        
         """
         
         return self.translate(row[column], desired_language)
@@ -69,10 +85,13 @@ class Translator:
         identifies the process.
 
         Args:
-            process_id, column, table, desired_language
+            process_id: identifies the process, given by the input variable 'num_processes'
+            table: the table to be translated
+            column: the table's column to be translated
+            desired_language: the desired language for the translation
 
         Returns:
-            table
+            table: the translated table
         """
         
         process_id = args[0]
@@ -96,10 +115,12 @@ class Translator:
         Finally it merges the different parts returning the whole translated table.  
 
         Args:
-            table, column, desired_language
+            table: the table to be translated
+            column: the table's column to be translated
+            desired_language: the desired language for the translation
 
         Returns:
-            table
+            table: the translated table
         """
         
         if self.num_processes == 1:
