@@ -38,34 +38,17 @@ if __name__ == "__main__":
     second_table_df = utils.import_genes_table(second_table_path)
  
     # Translate first table
-    columns_to_translate = [col for col in first_table_df.columns if "gene" in col]
-    
-    for column in columns_to_translate:
-        first_table_df = translator.translate_table(first_table_df, column, "Gene name")
-    
+    first_table_df = utils.translation_table(first_table_df, translator, "gene", "Gene name")
     first_table_df = first_table_df.replace(to_replace='None', value=np.nan).dropna()
-        
-    # Translate second table
-    columns_to_translate = [col for col in second_table_df.columns if "gene" in col]
-    
-    for column in columns_to_translate:
-        second_table_df = translator.translate_table(second_table_df, column, "Gene name")
-        
+ 
+    # # Translate second table
+    second_table_df = utils.translation_table(second_table_df, translator, "gene", "Gene name")
     second_table_df = second_table_df.replace(to_replace='None', value=np.nan).dropna()
     
-    # Parse the two tables to keep only the same subjects for subsequent analysis
+    # # Parse the two tables to keep only the same subjects for subsequent analysis
     first_table_df, second_table_df = utils.parse_columns(df_1=first_table_df, df_2=second_table_df)
     
-    # Save the new tables in the same path
+    # # Save the new tables in the same path
     if save_table:
-        translated_first_table_file_name = "translated_" + first_table_path.split("/")[-1]
-        translated_first_table_path = "/".join(first_table_path.split("/")[:-1])
-        translated_first_table_path += "/"
-        translated_first_table_path += translated_first_table_file_name
-        first_table_df.to_csv(translated_first_table_path, index = False)
-    
-        translated_second_table_file_name = "translated_" + second_table_path.split("/")[-1]
-        translated_second_table_path = "/".join(second_table_path.split("/")[:-1])
-        translated_second_table_path += "/"
-        translated_second_table_path += translated_second_table_file_name
-        second_table_df.to_csv(translated_second_table_path, index = False)
+        utils.save_table(first_table_df, first_table_path)
+        utils.save_table(second_table_df, second_table_path)

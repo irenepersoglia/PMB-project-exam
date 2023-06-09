@@ -1,7 +1,9 @@
 import argparse
 import pandas as pd
 import numpy as np
+
 from translator import Translator
+import utils
 
 if __name__ == "__main__":
 
@@ -39,16 +41,8 @@ if __name__ == "__main__":
     table_df["combined_score"] = np.dot(table_df["combined_score"], 0.001)
     
     # Translate table
-    columns_to_translate = [col for col in table_df.columns if "protein" in col]
-    
-    for column in columns_to_translate:
-        table_df = translator.translate_table(table_df, column, "display name")
+    table_df = utils.translation_table(table_df, translator, "protein", "display name")
 
     # Save the new table in the same path
     if save_table:
-        translated_table_file_name = "translated_" + table_path.split("/")[-1]
-        translated_table_path = "/".join(table_path.split("/")[:-1])
-        translated_table_path += "/"
-        translated_table_path += translated_table_file_name
-        table_df.to_csv(translated_table_path, index = False)
-        
+        utils.save_table(table_df, table_path)
