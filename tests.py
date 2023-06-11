@@ -20,7 +20,7 @@ def test_translate():
     
     assert translated_word == "giallo"
     
-def test_translate_row():
+def test_translate_row_1():
     """
     Test for the 'translate_row' method in the Translator class.
     Tests if, given a known dictionary and dataframe, the first row at the indicated
@@ -38,6 +38,26 @@ def test_translate_row():
     translated_row = dictionary.translate_row(translator_data_test.iloc[0], "Words", "Italian")
     
     assert translated_row == "blu"
+    
+def test_translate_row_2():
+    """
+    Test for the 'translate_row' method in the Translator class.
+    Tests if, given a known dictionary and dataframe, the first row at the indicated
+    column is translated as expected.
+    """
+
+    # Create test dataframes
+    data1 = {"Italian": ["rosso", "blu", "giallo", "verde"], "English": ["red", "blue", "yellow", "green"]}
+    dictionary = pd.DataFrame(data1)    
+    dictionary = Translator(dictionary, 1)
+
+    data2 = {"WordsA": ["blue", "yellow"], "WordsB": ["red", "green"]}
+    translator_data_test = pd.DataFrame(data2)
+
+    translated_row = dictionary.translate_row(translator_data_test.iloc[0], "WordsB", "Italian")
+    
+    assert translated_row == "rosso"
+    
     
 def test_translate_table():
     """
@@ -121,16 +141,16 @@ def test_parse_columns_3():
     - the columns are the expected ones
     """
 
-d1 = {"A":[1,7,2,3], "B":[2,4,1,3], "D":[3,1,8,2], "E":[2,3,4,4]}
-d2 = {"B":[6,9,7], "C":[9,5,4], "E":[8,9,5], "F":[6,8,1], "I":[5,6,7]}
-df1 = pd.DataFrame(d1)
-df2 = pd.DataFrame(d2)
+    d1 = {"A":[1,7,2,3], "B":[2,4,1,3], "D":[3,1,8,2], "E":[2,3,4,4]}
+    d2 = {"B":[6,9,7], "C":[9,5,4], "E":[8,9,5], "F":[6,8,1], "I":[5,6,7]}
+    df1 = pd.DataFrame(d1)
+    df2 = pd.DataFrame(d2)
 
-df1_new, df2_new = parse_columns(df_1=df1, df_2=df2)
+    df1_new, df2_new = parse_columns(df_1=df1, df_2=df2)
 
-assert len(df1_new.columns) == len(df2_new.columns)
-assert df1_new.columns.all() == "B" or "E"
-assert df2_new.columns.all() == "B" or "E"
+    assert len(df1_new.columns) == len(df2_new.columns)
+    assert df1_new.columns.all() == "B" or "E"
+    assert df2_new.columns.all() == "B" or "E"
 
 def test_import_genes_table():
     """
