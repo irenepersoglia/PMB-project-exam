@@ -124,8 +124,7 @@ class Translator:
         """
         
         if self.num_processes == 1:
-            tqdm.pandas()
-            table[column] = table.progress_apply(lambda row: self.translate_row(row, column, desired_language), axis=1)
+            table = self.translate_worker(args=([self.num_processes, column, table, desired_language]))
         else:
             if self.num_processes == 0: 
                 warnings.warn("No number of processes specified, the program will use all available cpu. This may slow down your pc.")
@@ -134,12 +133,15 @@ class Translator:
             splitted_df = np.array_split(table, self.num_processes)
 
             # Start processes in asyncronous way
-            pool = mp.Pool(processes = self.num_processes)
-            
-            results = [pool.apply_async(self.translate_worker, args = ([i, column, splitted_df[i], desired_language],)) for i in range(self.num_processes)]
-            
-            # Get the results and merge them in a table
-            final_table = [p.get() for p in results]    
-            table = pandas.concat(final_table)
+            with mp.Pool(processes = self.num_processes) as pool:
+                for i in range(self.num_processes):
+                    results = pool.apply_async(self.translate_worker, args=([i, column, splitted_df[i], desired_language],))
+
+                # Get the results and merge them in a table
+                table = results.get()
+                # Close the process pool
+                pool.close() 
+                # Wait for all tasks to complete
+                pool.join() 
             
         return table
